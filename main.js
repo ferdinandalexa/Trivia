@@ -43,7 +43,10 @@ function mostrarPregunta()
     if (numero == contestadas[numero])
     {
         if (totalContestadas < 6)
+        {
             mostrarPregunta();
+        }
+
     }
     else
     {
@@ -93,10 +96,14 @@ function sigPregunta()
 {
     acertada = false;
     intentos = 3;
-    totalContestadas++;
-    mostrarPregunta();
-    document.querySelector("#r1").style.background = "#FFFFFF"
-    document.querySelector("#r2").style.background = "#FFFFFF"
-    document.querySelector("#r3").style.background = "#FFFFFF"
-    document.querySelector("#r4").style.background = "#FFFFFF"
+    totalContestadas += 1;
+    if(totalContestadas < 6)
+    {
+        mostrarPregunta();
+        document.querySelector("#r1").style.background = "#FFFFFF"
+        document.querySelector("#r2").style.background = "#FFFFFF"
+        document.querySelector("#r3").style.background = "#FFFFFF"
+        document.querySelector("#r4").style.background = "#FFFFFF"
+    }
+    
 }
