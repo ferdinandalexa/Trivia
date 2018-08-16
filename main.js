@@ -15,7 +15,7 @@ let q3 = new Pregunta(`¿Cuál de los siguientes <strong>NO</strong> pertenece a
 let q4 = new Pregunta(`¿Cuál de los siguientes <strong>NO</strong> es una variación isometrica?`, [`Rotación`, `Traslación`, `Cartesiana`, `Simetría o Reflexion`], 'r3');
 let q5 = new Pregunta(`¿Cual es el sobrenombre de Apolonio?`, [`de Perje`, `Dios Geómetra`, `el Gran Geómetra`, `El Gran Matematico`], 'r3');
 
-let preguntas = ["", q0, q1, q2, q3, q4, q5];
+let preguntas = [q0, q1, q2, q3, q4, q5];
 let contestadas = [];
 let totalContestadas = 0;
 // console.log(pregunta[4]);
@@ -40,23 +40,14 @@ function aleatorio(min, max)
 function mostrarPregunta()
 {
     let numero = aleatorio(0, 5);
-    if (numero == contestadas[numero])
-    {
-        if (totalContestadas < 6)
-        {
-            mostrarPregunta();
-        }
 
-    }
-    else
-    {
-        pregunta.innerHTML = preguntas[numero + 1].pregunta;
-        r1.innerHTML = preguntas[numero + 1].respuestas[0];
-        r2.innerHTML = preguntas[numero + 1].respuestas[1];
-        r3.innerHTML = preguntas[numero + 1].respuestas[2];
-        r4.innerHTML = preguntas[numero + 1].respuestas[3];
-        contestadas[numero] = numero;
-    }
+    pregunta.innerHTML = preguntas[numero].pregunta;
+    r1.innerHTML = preguntas[numero].respuestas[0];
+    r2.innerHTML = preguntas[numero].respuestas[1];
+    r3.innerHTML = preguntas[numero].respuestas[2];
+    r4.innerHTML = preguntas[numero].respuestas[3];
+    contestadas[numero] = numero;
+
 
     return numero;
 }
@@ -72,12 +63,14 @@ document.querySelector("#r4").addEventListener('click', onclick);
 
 function onclick(e)
 {
+    console.log(preguntas[numeroPregunta]);
     console.log(e.target.id);
     let object = document.querySelector(`#${e.target.id}`);
     if (intentos != 0 && acertada == false)
     {
         if (e.target.id == preguntas[numeroPregunta].correcta)
         {
+            console.log(`${preguntas[numeroPregunta].correcta}`);
             console.log('Respuesta correcta');
             object.style.background = "rgb(158, 240, 110)";
             intentos = 3;
@@ -85,6 +78,7 @@ function onclick(e)
         }
         else
         {
+            console.log(`${preguntas[numeroPregunta].correcta}`);
             console.log('Respuesta incorrecta');
             object.style.background = "rgb(240, 110, 110)";
             intentos--;
@@ -97,13 +91,13 @@ function sigPregunta()
     acertada = false;
     intentos = 3;
     totalContestadas += 1;
-    if(totalContestadas < 6)
+    if (totalContestadas < 7)
     {
-        mostrarPregunta();
+        numeroPregunta = mostrarPregunta();
         document.querySelector("#r1").style.background = "#FFFFFF"
         document.querySelector("#r2").style.background = "#FFFFFF"
         document.querySelector("#r3").style.background = "#FFFFFF"
         document.querySelector("#r4").style.background = "#FFFFFF"
     }
-    
+
 }
